@@ -13,10 +13,7 @@ from telegram.ext import Updater, CommandHandler
 
 
 # 設定一些個人的環境變數
-env = ConfigParser()
-env.read('config.ini')
-# If you don't want use config.ini, please edit following variables for your environment.
-TOKEN = env['bot']['TOKEN']
+TOKEN = os.environ["TOKEN"]
 
 
 updater = Updater(token=TOKEN)  # 呼叫 bot 用
