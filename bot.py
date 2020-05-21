@@ -14,6 +14,7 @@ from telegram.ext import Updater, CommandHandler
 
 # 設定一些個人的環境變數
 TOKEN = os.environ["TOKEN"]
+PORT = int(os.environ.get('PORT', '8443'))
 
 
 updater = Updater(token=TOKEN)  # 呼叫 bot 用
@@ -45,5 +46,10 @@ updater.dispatcher.add_handler(CommandHandler('hi', hello))  # Hello World!
 
 
 # 執行機器人必須要的，讓機器人運作聽命
-updater.start_polling()
+#updater.start_polling()
+# 改用 webhook 的方式
+updater.start_webhook(listen="0.0.0.0",
+                      port=PORT,
+                      url_path=TOKEN)
+updater.bot.set_webhook("https://{你的 heroku 專案名稱}.herokuapp.com/" + TOKEN)
 updater.idle()
